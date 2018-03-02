@@ -4,7 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 
 const routes: Routes = [
-  {path: 'path', component: AppComponent},
+  {path: 'task-1', loadChildren: 'app/task-1-sort/task-1-sort.module#Task1SortModule'},
 ];
 
 @NgModule({
