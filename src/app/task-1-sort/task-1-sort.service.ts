@@ -1,61 +1,68 @@
 import {Injectable} from '@angular/core';
+import {isUndefined} from 'util';
 
 @Injectable()
 export class Task1SortService {
 
-  constructor() {
+  public run(array: number[], flag: boolean = false): number[] {
+    if (array.length < 1) { throw Error('Должен быть массив более чем из 1 элемента'); }
+    const heap = this.createHeap(array);
+
+    const result = [];
+    for (let i = 0; i < array.length; ++i) {
+      result.push(heap[0]);
+      this.removeElement(heap);
+    }
+
+    return flag ? result : result.reverse();
   }
 
-  public run(array: number[]): number[] {
-    if (array.length === 0) { return []; }
-    let n = array.length, i = Math.floor(n / 2), j, k, t;
-    while (true) {
-      if (i > 0) { t = array[--i]; } else {
-        n--;
-        if (n === 0) { return array; }
-        t = array[n];
-        array[n] = array[0];
+  private createHeap(array: number[]): number[] {
+    const heap: number[] = [];
+    array.forEach((value, index) => this.addElement(heap, value, index));
+
+    return heap;
+  }
+
+  public addElement(array: number[], element: number, index: number) {
+    array[index] = element;
+    while (index > 0) {
+      const last = Math.floor(index / 2);
+      if (array[index] <= array[last]) {
+        break;
       }
-      j = i;
-      k = j * 2 + 1;
-      while (k < n) {
-        if (k + 1 < n && array[k + 1] > array[k]) { k++; }
-        if (array[k] > t) {
-          array[j] = array[k];
-          j = k;
-          k = j * 2 + 1;
-        } else { break; }
-      }
-      array[j] = t;
+
+      const value = array[index];
+      array[index] = array[last];
+      array[last] = value;
+      index = last;
     }
+
+    return array;
+  }
+
+  public removeElement(array: number[]): number[] {
+    let index = 0;
+    array[index] = array[array.length - 1];
+    array.length = array.length - 1;
+    while (index * 2 + 1 < array.length) {
+      let max;
+      if (!isUndefined(array[index * 2 + 2])) {
+        max = array[index * 2 + 1] > array[index * 2 + 2] ? index * 2 + 1 : index * 2 + 2;
+      } else {
+        max = index * 2 + 1;
+      }
+
+      if (array[index] >= array[max]) {
+        break;
+      }
+
+      const value = array[index];
+      array[index] = array[max];
+      array[max] = value;
+      index = max;
+    }
+
+    return array;
   }
 }
-
-// var arr = [4,7,6,5,8,2,0,3,1,12,4,7,6,5,8,2,0,3,12,4,7,6,5,8,2,0,3,1,12,4,7,6,5,8,2,3];
-// function sort(b) {
-//   function d(a, c) {
-//     var d = b[a];
-//     b[a] = b[c];
-//     b[c] = d
-//   }
-//   for (var c = b.length; c--;) {
-//     for (;;) {
-//       for (var e = !0, a = 0; a < (c - 1) / 2; a++)
-//         11
-//       b[a] < b[2 * a + 1] && (d(a, 2 * a + 1), e = !1),
-//         12
-//       b[a] < b[2 * a + 2] && (d(a, 2 * a + 2), e = !1);
-//       13
-//       if (e) break
-//       14
-//     }
-//     15
-//     b[0] > b[c] && d(0, c)
-//     16
-//   }
-//   17
-//   return b
-//   18
-// };
-// 19
-// alert(arr + "\n" +sort(arr)+"\n"+arr)
