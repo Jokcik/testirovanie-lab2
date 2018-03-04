@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Task1SortRoutingModule} from './task-1-sort-routing';
 import {Task1SortService} from './task-1-sort.service';
 import {Task1SortComponent} from './task-1-sort.component';
 import {RouterModule} from '@angular/router';
+import {Task1SortRoutingModule} from './task-1-sort-routing.module';
 
 @NgModule({
   imports: [
