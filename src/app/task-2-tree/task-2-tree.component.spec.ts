@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Task2TreeComponent } from './task-2-tree.component';
+import {Task2TreeService} from "./task-2-tree.service";
 
 describe('Task2TreeComponent', () => {
   let component: Task2TreeComponent;
@@ -8,6 +9,7 @@ describe('Task2TreeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers: [Task2TreeService],
       declarations: [ Task2TreeComponent ]
     })
     .compileComponents();
