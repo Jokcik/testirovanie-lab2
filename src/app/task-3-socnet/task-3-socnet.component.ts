@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Task3SocnetService} from './task-3-socnet.service';
-import {HttpClient} from '@angular/common/http';
+import {User} from './shared/user';
 
 @Component({
   selector: 'app-task-3-socnet',
   templateUrl: './task-3-socnet.component.html',
 })
 export class Task3SocnetComponent implements OnInit {
-  public results: any[] = [];
+  public users: User[] = [];
+  public friends: User[] = [];
 
-  constructor(private task3SocnetService: Task3SocnetService,
-              private http: HttpClient) { }
+  constructor(private task3SocnetService: Task3SocnetService) { }
 
   ngOnInit() {
-    this.http.get<any[]>('https://api.vk.com/method/users.get?user_ids=3586081,203586082,1,2,3&v=5.0')
-      .subscribe(res => this.results = res);
+    this.task3SocnetService.users({users_ids: [1, 2, 3]}).$observable.subscribe(users => this.users = users.response);
+    this.task3SocnetService.friends({user_id: 3586081}).$observable.subscribe(friends => this.friends = friends.response.items);
   }
 
 }

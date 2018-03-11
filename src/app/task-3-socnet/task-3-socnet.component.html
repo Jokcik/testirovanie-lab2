@@ -1,6 +1,9 @@
-<p>
-  task-3-socnet works!
-</p>
-<div *ngFor="let i of results">
-  {{i}}
+<p>Пользователи</p>
+<div class="users" *ngFor="let i of users">
+  {{i.first_name + ' ' + i.last_name}}
+</div>
+
+<p>Друзья</p>
+<div class="friend" *ngFor="let i of friends">
+  {{i.first_name + ' ' + i.last_name}}
 </div>

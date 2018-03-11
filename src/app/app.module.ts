@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {RouterModule} from '@angular/router';
 import { Task2TreeComponent } from './task-2-tree/task-2-tree.component';
 import { Task3SocnetComponent } from './task-3-socnet/task-3-socnet.component';
+import {HttpModule} from "@angular/http";
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { Task3SocnetComponent } from './task-3-socnet/task-3-socnet.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
